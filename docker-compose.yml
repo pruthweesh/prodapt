@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    container_name: prodapt_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: prodapt
+      POSTGRES_PASSWORD: prodapt
+      POSTGRES_DB: prodapt
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: prodapt_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+volumes:
+  db_data:
+  redis_data:
